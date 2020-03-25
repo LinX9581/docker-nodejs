@@ -1,11 +1,9 @@
-FROM node:latest
+FROM node:9.2.0
 
-RUN mkdir /docker-init
+COPY index.js package.json /app/
 
-WORKDIR /docker-init
+WORKDIR /app
 
-ADD ./nodejs-docker-init /docker-init
+RUN npm install && npm cache clean --force
 
-RUN npm install
-
-CMD ["npm", "run", "start"]
+CMD node index.js
